@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calcolo Vento Reale</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 400px; margin: auto; }
+        input, button { margin: 10px 0; width: 100%; padding: 10px; font-size: 16px; }
+        .result { margin-top: 20px; font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h2>Calcolatore di Vento Reale</h2>
+    <label for="wa">Vento apparente (nodi):</label>
+    <input type="number" id="wa" step="0.1">
+
+    <label for="vb">Velocità della barca (nodi):</label>
+    <input type="number" id="vb" step="0.1">
+
+    <label for="awa">Angolo vento apparente (°):</label>
+    <input type="number" id="awa" step="0.1">
+
+    <button onclick="calcola()">Calcola Vento Reale</button>
+
+    <div class="result" id="risultato"></div>
+
+    <script>
+        function calcola() {
+            const wa = parseFloat(document.getElementById('wa').value);
+            const vb = parseFloat(document.getElementById('vb').value);
+            const awaDeg = parseFloat(document.getElementById('awa').value);
+            const awaRad = awaDeg * Math.PI / 180;
+
+            if (isNaN(wa) || isNaN(vb) || isNaN(awaDeg)) {
+                document.getElementById('risultato').innerText = "Inserisci tutti i valori.";
+                return;
+            }
+
+            const wr = Math.sqrt(wa**2 + vb**2 - 2 * wa * vb * Math.cos(awaRad));
+            document.getElementById('risultato').innerText = "Vento reale: " + wr.toFixed(2) + " nodi";
+        }
+    </script>
+</body>
+</html>
